@@ -62,7 +62,8 @@
         <option value="outlook">Outlook Desktop / Outlook Web</option>
         <option value="apple">Apple Mail Mac / iPhone Mail</option>
         <option value="gmail">Gmail</option>
-        <option value="outlookmobile">Outlook Mobile iPhone / Android</option>
+        <option value="outlookmobilehtml">Outlook Mobile App – Rich HTML Try</option>
+        <option value="outlookmobile">Outlook Mobile App – Safe Text</option>
       </select>
 
       <button id="copyBtn" type="button">Copy Signature</button>
@@ -71,7 +72,7 @@
 
       <div class="note">
         For Apple Mail and Outlook Desktop/Web: use <b>Copy Signature</b>, then paste into signature settings.<br><br>
-        For Outlook Mobile: it copies a clean text signature because Outlook mobile strips logos, banners and HTML tables.
+        For Outlook Mobile: first try <b>Outlook Mobile App – Rich HTML Try</b>. If Outlook strips the logo/banner or spacing, use <b>Outlook Mobile App – Safe Text</b>.
       </div>
     </div>
 
@@ -141,6 +142,37 @@ function fullHtml(kind){
   '</table>';
 }
 
+
+function mobileRichHtml(){
+  const name = esc(val('name'));
+  const designation = esc(val('designation'));
+  const phone = esc(val('phone'));
+  const phoneLink = esc(val('phoneLink'));
+  const email = esc(val('email'));
+  const website = esc(val('website'));
+  const websiteLink = esc(val('websiteLink'));
+  const linkedin = val('linkedin');
+  const nameHtml = linkedin ? '<a href="'+esc(linkedin)+'" style="color:#006B3F;text-decoration:underline;">'+name+'</a>' : '<span style="color:#006B3F;">'+name+'</span>';
+
+  return '<table cellpadding="0" cellspacing="0" border="0" width="360" style="width:360px;max-width:360px;border-collapse:collapse;font-family:Arial,Verdana,sans-serif;">' +
+    '<tr>' +
+      '<td width="92" valign="top" style="padding:0 10px 0 0;vertical-align:top;"><img src="'+LOGO+'" width="82" alt="MRM" style="display:block;border:0;width:82px;height:auto;"></td>' +
+      '<td valign="top" style="padding:0;vertical-align:top;">' +
+        '<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">' +
+          '<tr><td style="font-family:Arial,Verdana,sans-serif;font-size:16px;font-weight:bold;line-height:20px;">'+nameHtml+'</td></tr>' +
+          '<tr><td style="font-family:Arial,Verdana,sans-serif;font-size:12px;color:#000;line-height:17px;padding-top:2px;">'+designation+'</td></tr>' +
+          '<tr><td height="8" style="font-size:8px;line-height:8px;">&nbsp;</td></tr>' +
+          '<tr><td style="font-family:Arial,Verdana,sans-serif;font-size:11px;line-height:16px;"><a href="tel:'+phoneLink+'" style="color:#006B3F;text-decoration:underline;">'+phone+'</a></td></tr>' +
+          '<tr><td style="font-family:Arial,Verdana,sans-serif;font-size:11px;line-height:16px;"><a href="mailto:'+email+'" style="color:#006B3F;text-decoration:underline;">'+email+'</a></td></tr>' +
+          '<tr><td style="font-family:Arial,Verdana,sans-serif;font-size:11px;line-height:16px;"><a href="'+websiteLink+'" style="color:#006B3F;text-decoration:underline;">'+website+'</a></td></tr>' +
+        '</table>' +
+      '</td>' +
+    '</tr>' +
+    '<tr><td colspan="2" height="10" style="font-size:10px;line-height:10px;">&nbsp;</td></tr>' +
+    '<tr><td colspan="2"><img src="'+BANNER+'" width="340" alt="Mayank Raw Mint" style="display:block;border:0;width:340px;height:auto;"></td></tr>' +
+  '</table>';
+}
+
 function outlookMobileText(){
   return val('name') + '\n' +
     val('designation') + '\n' +
@@ -153,6 +185,7 @@ function outlookMobileText(){
 function currentOutput(){
   const app = el('mailApp').value;
   if(app === 'outlookmobile') return { type:'text', value:outlookMobileText() };
+  if(app === 'outlookmobilehtml') return { type:'html', value:mobileRichHtml() };
   return { type:'html', value:fullHtml(app) };
 }
 
@@ -174,7 +207,7 @@ async function copySignature(){
   try {
     if(out.type === 'text') {
       await navigator.clipboard.writeText(out.value);
-      status('Outlook Mobile text signature copied.');
+      status('Outlook Mobile safe text signature copied.');
       return;
     }
     if(window.ClipboardItem) {
