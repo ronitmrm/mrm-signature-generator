@@ -1,286 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>MRM Email Signature Generator</title>
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 30px;
-    background: #f4f6f5;
-    color: #111;
-  }
-  .wrap {
-    max-width: 1100px;
-    margin: auto;
-    background: #fff;
-    border-radius: 14px;
-    padding: 26px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-  }
-  h1 {
-    margin: 0 0 5px;
-    color: #006B3F;
-  }
-  .subtitle {
-    margin-bottom: 24px;
-    color: #555;
-  }
-  .grid {
-    display: grid;
-    grid-template-columns: 360px 1fr;
-    gap: 28px;
-  }
-  label {
-    font-weight: 600;
-    display: block;
-    margin-top: 14px;
-    margin-bottom: 6px;
-  }
-  input {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 11px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 14px;
-  }
-  button {
-    background: #006B3F;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 11px 14px;
-    margin-top: 14px;
-    cursor: pointer;
-    font-weight: 700;
-  }
-  button.secondary {
-    background: #333;
-    margin-left: 8px;
-  }
-  .preview-box {
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    padding: 18px;
-    margin-bottom: 22px;
-    background: white;
-  }
-  .preview-title {
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: #006B3F;
-  }
-  textarea {
-    width: 100%;
-    height: 180px;
-    margin-top: 10px;
-    font-family: monospace;
-    font-size: 12px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    box-sizing: border-box;
-  }
-  .note {
-    background: #eef7f2;
-    border-left: 4px solid #006B3F;
-    padding: 12px;
-    margin-top: 18px;
-    font-size: 14px;
-  }
-  @media(max-width: 900px) {
-    .grid { grid-template-columns: 1fr; }
-  }
+  body{font-family:Arial,sans-serif;margin:0;padding:28px;background:#f4f6f5;color:#111}.wrap{max-width:1120px;margin:auto;background:#fff;border-radius:14px;padding:26px;box-shadow:0 8px 30px rgba(0,0,0,.08)}h1{margin:0 0 5px;color:#006B3F}.subtitle{margin-bottom:22px;color:#555}.grid{display:grid;grid-template-columns:360px 1fr;gap:28px}label{font-weight:700;display:block;margin-top:13px;margin-bottom:6px}input,select{width:100%;box-sizing:border-box;padding:11px;border:1px solid #ccc;border-radius:8px;font-size:14px}button{background:#006B3F;color:#fff;border:none;border-radius:8px;padding:11px 14px;margin-top:14px;cursor:pointer;font-weight:700}.secondary{background:#333}.light{background:#e8efe9;color:#064b30}.row{display:flex;gap:8px;flex-wrap:wrap}.preview-box{border:1px solid #ddd;border-radius:12px;padding:18px;margin-bottom:18px;background:#fff}.preview-title{font-weight:700;margin-bottom:12px;color:#006B3F}.note{background:#eef7f2;border-left:4px solid #006B3F;padding:12px;margin-top:18px;font-size:14px;line-height:1.45}.warn{background:#fff8e8;border-left:4px solid #d88a00}.status{font-size:13px;margin-top:8px;color:#006B3F;font-weight:700}textarea{width:100%;height:150px;margin-top:10px;font-family:monospace;font-size:12px;border-radius:8px;border:1px solid #ccc;padding:10px;box-sizing:border-box}@media(max-width:900px){.grid{grid-template-columns:1fr}.wrap{padding:18px}body{padding:14px}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>MRM Email Signature Generator</h1>
-  <div class="subtitle">Enter employee details, generate the signature, then copy the rendered preview into Outlook / Apple Mail.</div>
-
+  <div class="subtitle">Fill employee details, choose mail app, copy the rendered signature and paste it into the signature settings.</div>
   <div class="grid">
     <div>
-      <label>Name</label>
-      <input id="name" value="Ronit Khattar">
-
-      <label>Designation</label>
-      <input id="designation" value="Manufacturing Lead">
-
-      <label>Phone</label>
-      <input id="phone" value="(+91) 94279 44311">
-
-      <label>Phone Link Value</label>
-      <input id="phoneLink" value="+919427944311">
-
-      <label>Email</label>
-      <input id="email" value="ronit@mayankrawmint.com">
-
-      <label>LinkedIn URL Optional</label>
-      <input id="linkedin" value="https://www.linkedin.com/in/ronit-khattar-238217191/">
-
-      <label>Website</label>
-      <input id="website" value="www.mayankrawmint.com">
-
-      <label>Website Link</label>
-      <input id="websiteLink" value="https://www.mayankrawmint.com">
-
-      <button onclick="generate()">Generate Signature</button>
-      <button onclick="copySignature()">Copy Signature</button>
-      <button class="secondary" onclick="copyHtml()">Copy HTML Code</button>
-
+      <label>Name</label><input id="name" value="Ronit Khattar" oninput="generate()">
+      <label>Designation</label><input id="designation" value="Manufacturing Lead" oninput="generate()">
+      <label>Phone</label><input id="phone" value="(+91) 94279 44311" oninput="generate()">
+      <label>Phone Link Value</label><input id="phoneLink" value="+919427944311" oninput="generate()">
+      <label>Email</label><input id="email" value="ronit@mayankrawmint.com" oninput="generate()">
+      <label>LinkedIn URL Optional</label><input id="linkedin" value="https://www.linkedin.com/in/ronit-khattar-238217191/" oninput="generate()">
+      <label>Website</label><input id="website" value="www.mayankrawmint.com" oninput="generate()">
+      <label>Website Link</label><input id="websiteLink" value="https://www.mayankrawmint.com" oninput="generate()">
+      <label>Mail App</label>
+      <select id="mode" onchange="generate()">
+        <option value="apple">Apple Mail / iPhone Mail</option>
+        <option value="outlook">Outlook Desktop / Outlook Web</option>
+        <option value="outlookmobile">Outlook Mobile (iPhone / Android)</option>
+        <option value="gmail">Gmail</option>
+      </select>
+      <div class="row">
+        <button onclick="copySignature()">Copy Signature</button>
+        <button class="secondary" onclick="copyHtml()">Copy HTML Backup</button>
+      </div>
+      <div id="status" class="status"></div>
       <div class="note">
-        Best method: click Copy Signature and paste directly into Outlook Web / Apple Mail signature settings. Use HTML Code only as backup.
+        Best method: click <b>Copy Signature</b>, then paste inside the signature box. Do not paste the HTML code unless you are using an admin tool that specifically asks for HTML.
+      </div>
+      <div class="note warn">
+        For Outlook Mobile: use the Outlook Mobile option. Microsoft Outlook mobile does not reliably keep logos/banners, so it creates a clean text signature.
       </div>
     </div>
-
     <div>
       <div class="preview-box">
-        <div class="preview-title">Desktop / Web Signature Preview</div>
-        <div id="desktopPreview"></div>
+        <div class="preview-title">Signature Preview</div>
+        <div id="preview"></div>
       </div>
-
-      <div class="preview-box">
-        <div class="preview-title">Mobile Signature Preview</div>
-        <div id="mobilePreview"></div>
-      </div>
-
-      <div class="preview-title">HTML Code Backup</div>
+      <div class="preview-title">HTML Backup</div>
       <textarea id="htmlCode" readonly></textarea>
     </div>
   </div>
 </div>
-
 <script>
-const LOGO = "https://res.cloudinary.com/hl0aihpv/image/upload/v1783149997/MRM_Block_zm59g2.png";
-const PHONE_ICON = "https://res.cloudinary.com/hl0aihpv/image/upload/v1783149998/phone2-black_qthfl7.png";
-const MAIL_ICON = "https://res.cloudinary.com/hl0aihpv/image/upload/v1783149996/mail2-black_f6lndl.png";
-const WEB_ICON = "https://res.cloudinary.com/hl0aihpv/image/upload/v1783149995/internet-black_qcehxj.png";
-const BANNER = "https://res.cloudinary.com/hl0aihpv/image/upload/v1783150145/Signature_Banner_na9qdj.gif";
-
-function val(id) {
-  return document.getElementById(id).value.trim();
+const LOGO="https://res.cloudinary.com/hl0aihpv/image/upload/v1783149997/MRM_Block_zm59g2.png";
+const PHONE_ICON="https://res.cloudinary.com/hl0aihpv/image/upload/v1783149998/phone2-black_qthfl7.png";
+const MAIL_ICON="https://res.cloudinary.com/hl0aihpv/image/upload/v1783149996/mail2-black_f6lndl.png";
+const WEB_ICON="https://res.cloudinary.com/hl0aihpv/image/upload/v1783149995/internet-black_qcehxj.png";
+const BANNER="https://res.cloudinary.com/hl0aihpv/image/upload/v1783150145/Signature_Banner_na9qdj.gif";
+function esc(s){return String(s||"").replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));}
+function val(id){return document.getElementById(id).value.trim();}
+function nameLine(name,linkedin,fontSize,lineHeight){
+  const text=esc(name);
+  if(linkedin){return '<a href="'+esc(linkedin)+'" style="color:#006B3F;text-decoration:underline;font-family:Verdana,Arial,sans-serif;font-size:'+fontSize+'px;font-weight:bold;line-height:'+lineHeight+'px;">'+text+'</a>';}
+  return '<span style="color:#006B3F;font-family:Verdana,Arial,sans-serif;font-size:'+fontSize+'px;font-weight:bold;line-height:'+lineHeight+'px;">'+text+'</span>';
 }
-
-function nameHtml(name, linkedin, size, lineHeight) {
-  if (linkedin) {
-    return `<a href="${linkedin}" style="color:#006B3F;text-decoration:underline;">${name}</a>`;
+function buildMobileText(){
+  const name=val('name'), designation=val('designation'), phone=val('phone'), email=val('email'), website=val('website');
+  return name + "\n" + designation + "\n\n" +
+    "Mayank Raw Mint Pvt. Ltd." + "\n\n" +
+    "Phone: " + phone + "\n" +
+    "Email: " + email + "\n" +
+    "Web: " + website;
+}
+function buildSignature(){
+  const mode=val('mode'), name=val('name'), designation=val('designation'), phone=val('phone'), phoneLink=val('phoneLink'), email=val('email'), linkedin=val('linkedin'), website=val('website'), websiteLink=val('websiteLink');
+  if(mode==='outlookmobile') return buildMobileText();
+  const isApple=mode==='apple', isGmail=mode==='gmail';
+  const width=isApple?420:440, logoW=isApple?118:125, leftW=isApple?128:135, bannerW=isApple?410:425;
+  const nameSize=isApple?19:20, nameLH=isApple?23:24, desigSize=isApple?14:15, contactSize=isApple?13:14;
+  const spacerBig=isApple?10:14;
+  const banner = isGmail ? '' : '<tr><td colspan="2" height="16" style="height:16px;font-size:1px;line-height:16px;">&nbsp;</td></tr><tr><td colspan="2"><img src="'+BANNER+'" width="'+bannerW+'" alt="Mayank Raw Mint" style="display:block;border:0;outline:none;text-decoration:none;width:'+bannerW+'px;max-width:'+bannerW+'px;height:auto;"></td></tr>';
+  return '<table cellpadding="0" cellspacing="0" border="0" width="'+width+'" style="width:'+width+'px;max-width:'+width+'px;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;font-family:Verdana,Arial,sans-serif;background:#ffffff;">'+
+    '<tr><td width="'+leftW+'" valign="top" style="width:'+leftW+'px;padding:0 14px 0 0;vertical-align:top;"><img src="'+LOGO+'" width="'+logoW+'" alt="MRM" style="display:block;border:0;outline:none;text-decoration:none;width:'+logoW+'px;height:auto;"></td>'+
+    '<td valign="top" style="padding:0;vertical-align:top;font-family:Verdana,Arial,sans-serif;">'+
+    '<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;"><tr><td style="padding:0;margin:0;">'+nameLine(name,linkedin,nameSize,nameLH)+'</td></tr>'+
+    '<tr><td height="4" style="height:4px;font-size:1px;line-height:4px;">&nbsp;</td></tr>'+
+    '<tr><td style="font-family:Verdana,Arial,sans-serif;font-size:'+desigSize+'px;line-height:'+(desigSize+5)+'px;color:#000000;padding:0;margin:0;">'+esc(designation)+'</td></tr>'+
+    '<tr><td height="'+spacerBig+'" style="height:'+spacerBig+'px;font-size:1px;line-height:'+spacerBig+'px;">&nbsp;</td></tr>'+
+    '<tr><td><table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">'+
+    contactRow(PHONE_ICON,'tel:'+phoneLink,phone,contactSize)+contactRow(MAIL_ICON,'mailto:'+email,email,contactSize)+contactRow(WEB_ICON,websiteLink,website,contactSize)+
+    '</table></td></tr></table></td></tr>'+banner+'</table>';
+}
+function contactRow(icon,href,text,size){return '<tr><td width="22" valign="middle" style="width:22px;padding:3px 7px 3px 0;vertical-align:middle;"><img src="'+icon+'" width="15" alt="" style="display:block;border:0;outline:none;text-decoration:none;width:15px;height:auto;"></td><td valign="middle" style="padding:3px 0;vertical-align:middle;font-family:Verdana,Arial,sans-serif;font-size:'+size+'px;line-height:'+(size+6)+'px;"><a href="'+esc(href)+'" style="color:#006B3F;text-decoration:underline;font-family:Verdana,Arial,sans-serif;font-size:'+size+'px;line-height:'+(size+6)+'px;">'+esc(text)+'</a></td></tr>';}
+function generate(){
+  const mode=val('mode');
+  const html=buildSignature();
+  if(mode==='outlookmobile'){
+    document.getElementById('preview').innerHTML='<pre style="white-space:pre-wrap;font-family:Arial,sans-serif;font-size:14px;line-height:20px;margin:0;">'+esc(html)+'</pre>';
+    document.getElementById('htmlCode').value=html;
+  }else{
+    document.getElementById('preview').innerHTML=html;
+    document.getElementById('htmlCode').value=html;
   }
-  return `<span style="color:#006B3F;">${name}</span>`;
+  document.getElementById('status').textContent='';
 }
-
-function desktopSignature() {
-  const name = val("name");
-  const designation = val("designation");
-  const phone = val("phone");
-  const phoneLink = val("phoneLink");
-  const email = val("email");
-  const linkedin = val("linkedin");
-  const website = val("website");
-  const websiteLink = val("websiteLink");
-
-  return `<table cellpadding="0" cellspacing="0" border="0" width="440" style="width:440px;max-width:440px;border-collapse:collapse;font-family:Verdana,Arial,sans-serif;">
-<tr>
-<td width="135" valign="top" style="padding-right:16px;">
-<img src="${LOGO}" width="125" style="display:block;border:0;width:125px;height:auto;">
-</td>
-<td valign="top">
-<div style="font-size:20px;font-weight:bold;line-height:24px;">${nameHtml(name, linkedin)}</div>
-<div style="height:4px;line-height:4px;font-size:4px;">&nbsp;</div>
-<div style="font-size:15px;color:#000000;line-height:20px;">${designation}</div>
-<div style="height:14px;line-height:14px;font-size:14px;">&nbsp;</div>
-<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
-<tr><td style="padding:4px 8px 4px 0;"><img src="${PHONE_ICON}" width="16" style="display:block;border:0;"></td><td style="font-size:14px;line-height:20px;"><a href="tel:${phoneLink}" style="color:#006B3F;text-decoration:underline;">${phone}</a></td></tr>
-<tr><td style="padding:4px 8px 4px 0;"><img src="${MAIL_ICON}" width="16" style="display:block;border:0;"></td><td style="font-size:14px;line-height:20px;"><a href="mailto:${email}" style="color:#006B3F;text-decoration:underline;">${email}</a></td></tr>
-<tr><td style="padding:4px 8px 4px 0;"><img src="${WEB_ICON}" width="16" style="display:block;border:0;"></td><td style="font-size:14px;line-height:20px;"><a href="${websiteLink}" style="color:#006B3F;text-decoration:underline;">${website}</a></td></tr>
-</table>
-</td>
-</tr>
-<tr><td colspan="2" style="height:18px;line-height:18px;">&nbsp;</td></tr>
-<tr><td colspan="2"><img src="${BANNER}" width="425" style="display:block;border:0;width:425px;height:auto;"></td></tr>
-</table>`;
-}
-
-function mobileSignature() {
-  const name = val("name");
-  const designation = val("designation");
-  const phone = val("phone");
-  const phoneLink = val("phoneLink");
-  const email = val("email");
-  const linkedin = val("linkedin");
-  const website = val("website");
-  const websiteLink = val("websiteLink");
-
-  return `<table cellpadding="0" cellspacing="0" border="0" width="360" style="width:360px;max-width:360px;border-collapse:collapse;font-family:Verdana,Arial,sans-serif;">
-<tr>
-<td width="105" valign="top" style="padding-right:12px;">
-<img src="${LOGO}" width="95" style="display:block;border:0;width:95px;height:auto;">
-</td>
-<td valign="top">
-<div style="font-size:17px;font-weight:bold;line-height:21px;">${nameHtml(name, linkedin)}</div>
-<div style="height:3px;line-height:3px;font-size:3px;">&nbsp;</div>
-<div style="font-size:13px;color:#000000;line-height:17px;">${designation}</div>
-<div style="height:10px;line-height:10px;font-size:10px;">&nbsp;</div>
-<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
-<tr><td style="padding:3px 6px 3px 0;"><img src="${PHONE_ICON}" width="14" style="display:block;border:0;"></td><td style="font-size:12px;line-height:18px;"><a href="tel:${phoneLink}" style="color:#006B3F;text-decoration:underline;">${phone}</a></td></tr>
-<tr><td style="padding:3px 6px 3px 0;"><img src="${MAIL_ICON}" width="14" style="display:block;border:0;"></td><td style="font-size:12px;line-height:18px;"><a href="mailto:${email}" style="color:#006B3F;text-decoration:underline;">${email}</a></td></tr>
-<tr><td style="padding:3px 6px 3px 0;"><img src="${WEB_ICON}" width="14" style="display:block;border:0;"></td><td style="font-size:12px;line-height:18px;"><a href="${websiteLink}" style="color:#006B3F;text-decoration:underline;">${website}</a></td></tr>
-</table>
-</td>
-</tr>
-<tr><td colspan="2" style="height:14px;line-height:14px;">&nbsp;</td></tr>
-<tr><td colspan="2"><img src="${BANNER}" width="350" style="display:block;border:0;width:350px;height:auto;"></td></tr>
-</table>`;
-}
-
-function generate() {
-  const desktop = desktopSignature();
-  const mobile = mobileSignature();
-  document.getElementById("desktopPreview").innerHTML = desktop;
-  document.getElementById("mobilePreview").innerHTML = mobile;
-  document.getElementById("htmlCode").value = desktop;
-}
-
-async function copySignature() {
-  generate();
-  const signature = document.getElementById("desktopPreview").innerHTML;
-
-  try {
-    if (navigator.clipboard && window.ClipboardItem) {
-      const htmlBlob = new Blob([signature], { type: "text/html" });
-      const textBlob = new Blob([document.getElementById("desktopPreview").innerText], { type: "text/plain" });
-      await navigator.clipboard.write([
-        new ClipboardItem({
-          "text/html": htmlBlob,
-          "text/plain": textBlob
-        })
-      ]);
-      alert("Signature copied. Now paste it into your email signature settings.");
+async function copySignature(){
+  const mode=val('mode');
+  const html=document.getElementById('htmlCode').value;
+  try{
+    if(mode==='outlookmobile'){
+      await navigator.clipboard.writeText(html);
+      document.getElementById('status').textContent='Outlook Mobile text signature copied. Paste it in Outlook app signature settings.';
       return;
     }
-  } catch (err) {
-    console.warn("Clipboard API failed, using fallback", err);
-  }
-
-  const range = document.createRange();
-  const selection = window.getSelection();
-  range.selectNodeContents(document.getElementById("desktopPreview"));
-  selection.removeAllRanges();
-  selection.addRange(range);
-  document.execCommand("copy");
-  selection.removeAllRanges();
-  alert("Signature copied. Now paste it into your email signature settings.");
+    if(navigator.clipboard && window.ClipboardItem){await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([document.getElementById('preview').innerText],{type:'text/plain'})})]);}
+    else{fallbackCopyRendered();}
+    document.getElementById('status').textContent='Signature copied. Paste it in your mail app signature settings.';
+  }catch(e){fallbackCopyRendered();document.getElementById('status').textContent='Signature selected/copied. Now paste it in your mail app signature settings.';}
 }
-
-function copyHtml() {
-  const code = document.getElementById("htmlCode");
-  code.select();
-  document.execCommand("copy");
-  alert("HTML code copied. For Outlook/Apple Mail, copying the rendered preview is still recommended.");
-}
-
+function fallbackCopyRendered(){const el=document.getElementById('preview');const range=document.createRange();range.selectNodeContents(el);const sel=window.getSelection();sel.removeAllRanges();sel.addRange(range);document.execCommand('copy');sel.removeAllRanges();}
+function copyHtml(){const code=document.getElementById('htmlCode');code.select();document.execCommand('copy');document.getElementById('status').textContent='HTML backup copied.';}
 generate();
 </script>
 </body>
