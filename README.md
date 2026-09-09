@@ -8,3 +8,5 @@ Upload the full project contents to the existing GitHub repository. Vercel will 
 Important: keep the `assets` folder in the repository. Copied signatures use absolute URLs from the deployed Vercel domain.
 
 V5 deployment update
+
+V5 deployment trigger
