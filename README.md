@@ -1,13 +1,8 @@
 # MRM Email Signature Generator
 
-Static email signature generator for Mayank Raw Mint employees.
+Static Vercel-ready signature generator with locally hosted brand assets.
 
-## Employee Flow
-1. Open the hosted link.
-2. Fill in name, designation, phone, email, LinkedIn, and website.
-3. Click Generate Signature.
-4. Click Copy Signature.
-5. Paste into Outlook / Apple Mail / Gmail signature settings.
+## Deploy / update
+Upload the full project contents to the existing GitHub repository. Vercel will redeploy automatically.
 
-## Deploy
-Upload these files to GitHub and import the repository in Vercel.
+Important: keep the `assets` folder in the repository. Copied signatures use absolute URLs from the deployed Vercel domain.
